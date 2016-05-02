@@ -7,8 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1D4538BE1CCEA83B0011D186 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1D4538BC1CCEA83B0011D186 /* Main.storyboard */; };
+		1D115D8D1CD7F46400B41F20 /* PeakDetection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D115D8C1CD7F46400B41F20 /* PeakDetection.swift */; };
 		1D4538C01CCECC660011D186 /* constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D4538BF1CCECC660011D186 /* constants.swift */; };
+		1D7F76811CD69B8900258A65 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1D7F76801CD69B8900258A65 /* Main.storyboard */; };
+		1D7F76831CD69FDD00258A65 /* ScannerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D7F76821CD69FDD00258A65 /* ScannerViewController.swift */; };
+		1D7F76851CD6A07300258A65 /* BluetoothSerial.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1D7F76841CD6A07300258A65 /* BluetoothSerial.swift */; };
+		1D7F768A1CD6A09B00258A65 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D7F76891CD6A09B00258A65 /* MBProgressHUD.m */; };
 		1DE79E9C1CC93EDF008B7BD3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE79E9B1CC93EDF008B7BD3 /* AppDelegate.swift */; };
 		1DE79E9E1CC93EDF008B7BD3 /* EKGViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1DE79E9D1CC93EDF008B7BD3 /* EKGViewController.swift */; };
 		1DE79EA31CC93EDF008B7BD3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1DE79EA21CC93EDF008B7BD3 /* Assets.xcassets */; };
@@ -36,8 +40,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		1D4538BD1CCEA83B0011D186 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		1D115D8C1CD7F46400B41F20 /* PeakDetection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PeakDetection.swift; sourceTree = "<group>"; };
 		1D4538BF1CCECC660011D186 /* constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = constants.swift; sourceTree = "<group>"; };
+		1D7F76801CD69B8900258A65 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
+		1D7F76821CD69FDD00258A65 /* ScannerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScannerViewController.swift; sourceTree = "<group>"; };
+		1D7F76841CD6A07300258A65 /* BluetoothSerial.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BluetoothSerial.swift; sourceTree = "<group>"; };
+		1D7F76871CD6A09B00258A65 /* EKG-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "EKG-Bridging-Header.h"; sourceTree = "<group>"; };
+		1D7F76881CD6A09B00258A65 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		1D7F76891CD6A09B00258A65 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		1DE79E981CC93EDF008B7BD3 /* EKG.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EKG.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DE79E9B1CC93EDF008B7BD3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1DE79E9D1CC93EDF008B7BD3 /* EKGViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EKGViewController.swift; sourceTree = "<group>"; };
@@ -81,6 +91,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1D7F76861CD6A08700258A65 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				1D7F76881CD6A09B00258A65 /* MBProgressHUD.h */,
+				1D7F76891CD6A09B00258A65 /* MBProgressHUD.m */,
+				1D7F76871CD6A09B00258A65 /* EKG-Bridging-Header.h */,
+				1D115D8C1CD7F46400B41F20 /* PeakDetection.swift */,
+			);
+			name = Helpers;
+			sourceTree = "<group>";
+		};
 		1DE79E8F1CC93EDF008B7BD3 = {
 			isa = PBXGroup;
 			children = (
@@ -106,11 +127,14 @@
 		1DE79E9A1CC93EDF008B7BD3 /* EKG */ = {
 			isa = PBXGroup;
 			children = (
+				1D7F76861CD6A08700258A65 /* Helpers */,
 				1DE79E9B1CC93EDF008B7BD3 /* AppDelegate.swift */,
 				1DE79E9D1CC93EDF008B7BD3 /* EKGViewController.swift */,
 				1DE79EA21CC93EDF008B7BD3 /* Assets.xcassets */,
-				1D4538BC1CCEA83B0011D186 /* Main.storyboard */,
 				1DE79EA41CC93EDF008B7BD3 /* LaunchScreen.storyboard */,
+				1D7F76801CD69B8900258A65 /* Main.storyboard */,
+				1D7F76821CD69FDD00258A65 /* ScannerViewController.swift */,
+				1D7F76841CD6A07300258A65 /* BluetoothSerial.swift */,
 				1DE79EA71CC93EDF008B7BD3 /* Info.plist */,
 				1D4538BF1CCECC660011D186 /* constants.swift */,
 			);
@@ -223,6 +247,7 @@
 				TargetAttributes = {
 					1DE79E971CC93EDF008B7BD3 = {
 						CreatedOnToolsVersion = 7.3;
+						DevelopmentTeam = 5V88UP55Z9;
 					};
 					1DE79EAB1CC93EDF008B7BD3 = {
 						CreatedOnToolsVersion = 7.3;
@@ -259,7 +284,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1D4538BE1CCEA83B0011D186 /* Main.storyboard in Resources */,
+				1D7F76811CD69B8900258A65 /* Main.storyboard in Resources */,
 				1DE79EA61CC93EDF008B7BD3 /* LaunchScreen.storyboard in Resources */,
 				1DE79EA31CC93EDF008B7BD3 /* Assets.xcassets in Resources */,
 			);
@@ -334,9 +359,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1D115D8D1CD7F46400B41F20 /* PeakDetection.swift in Sources */,
 				1DE79E9E1CC93EDF008B7BD3 /* EKGViewController.swift in Sources */,
+				1D7F768A1CD6A09B00258A65 /* MBProgressHUD.m in Sources */,
 				1DE79E9C1CC93EDF008B7BD3 /* AppDelegate.swift in Sources */,
 				1D4538C01CCECC660011D186 /* constants.swift in Sources */,
+				1D7F76831CD69FDD00258A65 /* ScannerViewController.swift in Sources */,
+				1D7F76851CD6A07300258A65 /* BluetoothSerial.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -372,14 +401,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		1D4538BC1CCEA83B0011D186 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				1D4538BD1CCEA83B0011D186 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		1DE79EA41CC93EDF008B7BD3 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -481,10 +502,17 @@
 			baseConfigurationReference = 27E164677C4CA03EC84DD2BE /* Pods-EKG.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = EKG/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = jackross.EKG;
+				PRODUCT_BUNDLE_IDENTIFIER = us.jackross.ekg;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "EKG/EKG-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -493,10 +521,16 @@
 			baseConfigurationReference = F746AF5511D1C695FC262C91 /* Pods-EKG.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = EKG/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = jackross.EKG;
+				PRODUCT_BUNDLE_IDENTIFIER = us.jackross.ekg;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "EKG/EKG-Bridging-Header.h";
 			};
 			name = Release;
 		};
