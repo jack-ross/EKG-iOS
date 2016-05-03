@@ -32,7 +32,7 @@ class EKGViewController: UIViewController, BluetoothSerialDelegate {
     @IBOutlet weak var sliderLeadingEdgeConstraint: NSLayoutConstraint!
     
     var ekgVoltages: [Double] = []
-    let deltaX = 1.0 / Constants.SAMPLING_RATE
+    let deltaX = Constants.deltaX
     
     // MARK: Set up View
     
