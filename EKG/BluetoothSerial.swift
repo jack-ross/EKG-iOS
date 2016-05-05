@@ -192,7 +192,9 @@ final class BluetoothSerial: NSObject, CBCentralManagerDelegate, CBPeripheralDel
         
         // send it to the delegate
         delegate.serialDidConnect(peripheral)
-
+        print("Connected to peripheral")
+        print(peripheral)
+        
         // Okay, the peripheral is connected but we're not ready yet!
         // First get the 0xFFE0 service
         // Then get the 0xFFE1 characteristic of this service

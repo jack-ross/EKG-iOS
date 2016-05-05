@@ -80,7 +80,7 @@
                                                 <rect key="frame" x="0.0" y="0.0" width="600" height="35"/>
                                                 <color key="backgroundColor" red="0.96452173376913464" green="0.97950752617801051" blue="0.95631992215781203" alpha="1" colorSpace="calibratedRGB"/>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gmd-U8-Qco" userLabel="Slider">
+                                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gmd-U8-Qco" userLabel="Slider">
                                                 <rect key="frame" x="0.0" y="35" width="120" height="2"/>
                                                 <color key="backgroundColor" red="0.087816827380000004" green="0.76934718589999995" blue="0.083922578740000003" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
@@ -90,8 +90,8 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="9Ju-fY-4sT" userLabel="Button Stack View Time Scale">
                                                 <rect key="frame" x="0.0" y="0.0" width="600" height="35"/>
                                                 <subviews>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Drg-zu-Ucl" userLabel="xScale Button1">
-                                                        <rect key="frame" x="0.0" y="0.0" width="120" height="35"/>
+                                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Drg-zu-Ucl" userLabel="xScale Button1">
+                                                        <rect key="frame" x="0.0" y="0.0" width="150" height="35"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                         <state key="normal" title="1 Sec">
                                                             <color key="titleColor" red="0.087816827380000004" green="0.76934718589999995" blue="0.083922578740000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -100,8 +100,8 @@
                                                             <action selector="setXScale1Sec:" destination="BYZ-38-t0r" eventType="touchUpInside" id="dCk-fA-dIr"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ReV-sm-PEs">
-                                                        <rect key="frame" x="120" y="0.0" width="120" height="35"/>
+                                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ReV-sm-PEs">
+                                                        <rect key="frame" x="150" y="0.0" width="150" height="35"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                         <state key="normal" title="5 Sec">
                                                             <color key="titleColor" red="0.087816827380000004" green="0.76934718589999995" blue="0.083922578740000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -110,8 +110,8 @@
                                                             <action selector="setXScale5Sec:" destination="BYZ-38-t0r" eventType="touchUpInside" id="rNz-yH-ysH"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iFp-te-m46">
-                                                        <rect key="frame" x="240" y="0.0" width="120" height="35"/>
+                                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iFp-te-m46">
+                                                        <rect key="frame" x="300" y="0.0" width="150" height="35"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                         <state key="normal" title="10 Sec">
                                                             <color key="titleColor" red="0.087816827380000004" green="0.76934718589999995" blue="0.083922578740000003" alpha="1" colorSpace="calibratedRGB"/>
@@ -120,24 +120,14 @@
                                                             <action selector="setXScale10Sec:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Zlk-EE-3O6"/>
                                                         </connections>
                                                     </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ran-qm-3sn">
-                                                        <rect key="frame" x="360" y="0.0" width="120" height="35"/>
+                                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ran-qm-3sn">
+                                                        <rect key="frame" x="450" y="0.0" width="150" height="35"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                         <state key="normal" title="20 Sec">
                                                             <color key="titleColor" red="0.087816827380000004" green="0.76934718589999995" blue="0.083922578740000003" alpha="1" colorSpace="calibratedRGB"/>
                                                         </state>
                                                         <connections>
                                                             <action selector="setXScale20Sec:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Us8-BG-ehi"/>
-                                                        </connections>
-                                                    </button>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cRr-Rj-WMB">
-                                                        <rect key="frame" x="480" y="0.0" width="120" height="35"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                        <state key="normal" title="30 Sec">
-                                                            <color key="titleColor" red="0.087816827380000004" green="0.76934718589999995" blue="0.083922578740000003" alpha="1" colorSpace="calibratedRGB"/>
-                                                        </state>
-                                                        <connections>
-                                                            <action selector="setXScale30Sec:" destination="BYZ-38-t0r" eventType="touchUpInside" id="zL0-G2-VZ4"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -238,7 +228,6 @@
                         <outlet property="xScaleButton2" destination="ReV-sm-PEs" id="Fba-ZJ-0Lv"/>
                         <outlet property="xScaleButton3" destination="iFp-te-m46" id="bXx-SI-7b9"/>
                         <outlet property="xScaleButton4" destination="Ran-qm-3sn" id="cT8-h8-xTE"/>
-                        <outlet property="xScaleButton5" destination="cRr-Rj-WMB" id="PK1-xY-cZJ"/>
                         <segue destination="Iod-Ph-gqs" kind="presentation" identifier="ShowScanner" id="XhJ-zk-0UP"/>
                     </connections>
                 </viewController>

@@ -32,7 +32,12 @@ class EKGViewController: UIViewController, BluetoothSerialDelegate {
     @IBOutlet weak var sliderLeadingEdgeConstraint: NSLayoutConstraint!
     
     var ekgVoltages: [Double] = []
-    let deltaX = Constants.deltaX
+    static let bucketSize = 1;
+    static let sampleRate = 1.0/120
+    static let deltaX = EKGViewController.sampleRate * Double(EKGViewController.bucketSize)
+    var bufferArrayBytes = [UInt8](count: 100, repeatedValue: 0)
+    
+    var peakDetection: PeakDetection?
     
     // MARK: Set up View
     
@@ -41,10 +46,13 @@ class EKGViewController: UIViewController, BluetoothSerialDelegate {
         
         // init serial bluetooth
         serial = BluetoothSerial(delegate: self)
+        peakDetection = PeakDetection(deltaX: EKGViewController.deltaX, binSizeSeconds: nil)
+ 
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(EKGViewController.reloadView), name: "reloadStartViewController", object: nil)
         
         // instantiate 30 seconds of flat line
-        print(deltaX)
-        let maxSamples = Int(30 / deltaX)
+        print(EKGViewController.deltaX)
+        let maxSamples = Int(30 / EKGViewController.deltaX)
         ekgVoltages = [Double](count: maxSamples, repeatedValue: 0.0)
         loadDummyData()
         
@@ -57,8 +65,17 @@ class EKGViewController: UIViewController, BluetoothSerialDelegate {
         // set chart graphics and default to 5 seconds
         configureChart()
         addLimitLine()
+        
+        chartScaleIndex = 1;
         setChartScale(5)
+        
+        NSTimer.scheduledTimerWithTimeInterval(0.05, target: self, selector: #selector(EKGViewController.updateGraph), userInfo: nil, repeats: true)
     }
+    
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
     
     func configureNav() {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Reset", style: .Plain, target: self, action: #selector(reset))
@@ -97,6 +114,7 @@ class EKGViewController: UIViewController, BluetoothSerialDelegate {
         for i in 0..<Constants.EKGTimes.count {
             ekgVoltages.removeFirst()
             ekgVoltages.append(Constants.EKGValues[i])
+            peakDetection?.addDataPoint(Constants.EKGValues[i])
         }
     }
     
@@ -117,6 +135,30 @@ class EKGViewController: UIViewController, BluetoothSerialDelegate {
         chartDataSet.circleRadius = 1;
         let chartData = LineChartData(xVals: dataPoints, dataSet: chartDataSet)
         lineChartView.data = chartData
+    }
+    
+    func updateGraph(){
+        switch chartScaleIndex {
+        case 0:
+            setChartScale(1)
+        case 1:
+            setChartScale(5)
+        case 2:
+            setChartScale(10)
+        case 3:
+            setChartScale(20)
+        case 4:
+            setChartScale(30)
+        default:
+            setChartScale(5)
+        }
+    }
+    
+    func addChartDataPoint(value: Double) {
+        
+        ekgVoltages.removeFirst()
+        ekgVoltages.append(value)
+        peakDetection?.addDataPoint(value)
     }
     
     
@@ -157,7 +199,7 @@ class EKGViewController: UIViewController, BluetoothSerialDelegate {
     // MARK: Set Chart Scale
     
     func setChartScale(seconds: Int) {
-        let numSamples = Int(Double(seconds)/deltaX)
+        let numSamples = Int(Double(seconds)/EKGViewController.deltaX)
         let lastIndex = ekgVoltages.endIndex - 1;
         var adjustedStart = lastIndex - numSamples;
         if adjustedStart < 0 { adjustedStart = 0 }
@@ -177,12 +219,39 @@ class EKGViewController: UIViewController, BluetoothSerialDelegate {
             
         sliderLeadingEdgeConstraint.constant = xOffset
     }
-
+    
+    
+    var bucket = [Int]()
+    func parseByteArray(bytes: [UInt8]) {
+        for i in 0..<bytes.count {
+            bufferArrayBytes.removeFirst()
+            bufferArrayBytes.append(bytes[i])
+            
+            if bufferArrayBytes.first == 255 {
+                let bit0 = Int(bufferArrayBytes[1]) << 12
+                let bit1 = Int(bufferArrayBytes[2]) << 8
+                let bit2 = Int(bufferArrayBytes[3]) << 4
+                let bit3 = Int(bufferArrayBytes[4])
+                
+                let value = bit0 ^ bit1 ^ bit2 ^ bit3
+                bucket.append(value)
+                addChartDataPoint(Double(value))
+                
+                // if ten values, average and add voltage
+//                if bucket.count == EKGViewController.bucketSize {
+//                    let averageVoltage = bucket.reduce(0, combine: +) / bucket.count
+//                    addChartDataPoint(Double(averageVoltage))
+//                    bucket.removeAll(keepCapacity: false)
+//                }
+            }
+        }
+        
+    }
     
     //MARK: BluetoothSerialDelegate
     
-    func serialDidReceiveString(message: String) {
-        
+    func serialDidReceiveBytes(bytes: [UInt8]) {
+        parseByteArray(bytes)
     }
     
     func serialDidDisconnect(peripheral: CBPeripheral, error: NSError?) {
@@ -194,6 +263,7 @@ class EKGViewController: UIViewController, BluetoothSerialDelegate {
     }
     
     func serialDidChangeState(newState: CBCentralManagerState) {
+        print("did change state")
         reloadView()
         if newState != .PoweredOn {
             let hud = MBProgressHUD.showHUDAddedTo(view, animated: true)
@@ -201,6 +271,14 @@ class EKGViewController: UIViewController, BluetoothSerialDelegate {
             hud.labelText = "Bluetooth turned off"
             hud.hide(true, afterDelay: 1.0)
         }
+    }
+    
+    func serialDidConnect(peripheral: CBPeripheral) {
+        print("serial did connect")
+    }
+    
+    func serialIsReady(peripheral: CBPeripheral) {
+        print("connected")
     }
     
     //MARK: IBActions

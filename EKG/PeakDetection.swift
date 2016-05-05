@@ -10,6 +10,7 @@
 class PeakDetection: NSObject {
 
     // properties
+    var valueDataBins = [Double]()
     var velocityDataBins = [Double]()
     private var deltaX: Double
     private var binSizeSeconds: Double
@@ -22,8 +23,9 @@ class PeakDetection: NSObject {
     
     // for live processing
     private var currentBin = [Double]()
-    private var meanVelocity = 0.0
-    private var movingMeanVelocity = 0.0
+    var meanValue = 0.0
+    var meanVelocity = 0.0
+    var movingMeanVelocity = 0.0
     
     
     /*******************************/
@@ -34,7 +36,7 @@ class PeakDetection: NSObject {
         
         self.deltaX = deltaX
         self.binSizeSeconds = binSizeSeconds ?? 0.1
-        self.binSizeN = Int(binSizeSeconds!/Constants.deltaX)
+        self.binSizeN = Int(self.binSizeSeconds/self.deltaX)
         
         super.init()
     }
@@ -62,14 +64,25 @@ class PeakDetection: NSObject {
     
     private func updateBinsAndValues() {
         
-        // calculate average derivative over span
-        let averageVelocity = calculateMeanVelocity(currentBin)
-        velocityDataBins.append(averageVelocity)
+        // add average of bin to value array
+        let averageOfDataBins = calculateAverage(currentBin)
+        valueDataBins.append(averageOfDataBins)
+        meanValue = calculateAverage(valueDataBins)
+        
+        // calculate average derivative over dataBin
+        let averageVelocityOfDataBins = calculateMeanVelocity(currentBin)
+        velocityDataBins.append(averageVelocityOfDataBins)
+        meanVelocity = calculateMeanVelocity(velocityDataBins)
         
         currentBin.removeAll(keepCapacity: false)
         
-        // update moving average
-        meanVelocity = calculateMeanVelocity(velocityDataBins)
+        if valueDataBins.count > 500 {
+            valueDataBins.removeFirst()
+        }
+        
+        if velocityDataBins.count > 500 {
+            velocityDataBins.removeFirst()
+        }
         
     }
     
@@ -88,10 +101,10 @@ class PeakDetection: NSObject {
         return averageVelocity
     }
     
-    private func calculateMovingAverage(bins: [Double]) -> Double {
+    private func calculateAverage(data: [Double]) -> Double {
         
-        let movingAverage = bins.reduce(0.0, combine: +) / Double(bins.count)
-        return movingAverage
+        let average = data.reduce(0.0, combine: +) / Double(data.count)
+        return average
     }
     
     
