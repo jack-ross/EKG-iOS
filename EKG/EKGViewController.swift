@@ -10,7 +10,7 @@ import UIKit
 import Charts
 import CoreBluetooth
 
-class EKGViewController: UIViewController, BluetoothSerialDelegate {
+class EKGViewController: UIViewController, BluetoothSerialDelegate, PeakDetectionDelegate {
     
     
     // MARK: Properties
@@ -46,13 +46,14 @@ class EKGViewController: UIViewController, BluetoothSerialDelegate {
         
         // init serial bluetooth
         serial = BluetoothSerial(delegate: self)
-        peakDetection = PeakDetection(deltaX: EKGViewController.deltaX, binSizeSeconds: nil)
+        peakDetection = PeakDetection()
+        peakDetection?.delegate = self
  
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(EKGViewController.reloadView), name: "reloadStartViewController", object: nil)
         
         // instantiate 30 seconds of flat line
         print(EKGViewController.deltaX)
-        let maxSamples = Int(30 / EKGViewController.deltaX)
+        let maxSamples = Int(10 / EKGViewController.deltaX)
         ekgVoltages = [Double](count: maxSamples, repeatedValue: 0.0)
         loadDummyData()
         
@@ -67,15 +68,25 @@ class EKGViewController: UIViewController, BluetoothSerialDelegate {
         addLimitLine()
         
         chartScaleIndex = 1;
-        setChartScale(5)
+        setChartScale(2)
         
         NSTimer.scheduledTimerWithTimeInterval(0.05, target: self, selector: #selector(EKGViewController.updateGraph), userInfo: nil, repeats: true)
+        NSTimer.scheduledTimerWithTimeInterval(EKGViewController.sampleRate, target: self, selector: #selector(EKGViewController.insertData), userInfo: nil, repeats: true)
     }
     
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self)
     }
     
+    func updatedBPM(bpm: Double) {
+        liveHeartRate.text = String(Int(bpm))
+    }
+    
+    var dummyIndex = 0
+    func insertData() {
+        addChartDataPoint(Constants.previousEKGValues[dummyIndex])
+        dummyIndex += 1
+    }
     
     func configureNav() {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Reset", style: .Plain, target: self, action: #selector(reset))
@@ -142,13 +153,13 @@ class EKGViewController: UIViewController, BluetoothSerialDelegate {
         case 0:
             setChartScale(1)
         case 1:
-            setChartScale(5)
+            setChartScale(2)
         case 2:
-            setChartScale(10)
+            setChartScale(5)
         case 3:
-            setChartScale(20)
+            setChartScale(10)
         case 4:
-            setChartScale(30)
+            setChartScale(20)
         default:
             setChartScale(5)
         }
@@ -299,22 +310,22 @@ class EKGViewController: UIViewController, BluetoothSerialDelegate {
     
     @IBAction func setXScale5Sec(sender: AnyObject) {
         chartScaleIndex = 1
-        setChartScale(5)
+        setChartScale(2)
     }
     
     @IBAction func setXScale10Sec(sender: AnyObject) {
         chartScaleIndex = 2
-        setChartScale(10)
+        setChartScale(5)
     }
     
     @IBAction func setXScale20Sec(sender: AnyObject) {
         chartScaleIndex = 3
-        setChartScale(20)
+        setChartScale(10)
     }
     
     @IBAction func setXScale30Sec(sender: AnyObject) {
         chartScaleIndex = 4
-        setChartScale(30)
+        setChartScale(20)
     }
     
     // MARK: Handle Orientation
