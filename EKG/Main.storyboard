@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="aHs-pF-8Yv">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="aHs-pF-8Yv">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -33,16 +33,10 @@
                                                 <fontDescription key="fontDescription" type="system" weight="thin" pointSize="18"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RESTING" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EY2-pu-X76">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="ACTIVE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EY2-pu-X76">
                                                 <rect key="frame" x="292" y="85" width="61.5" height="18"/>
                                                 <fontDescription key="fontDescription" type="system" weight="thin" pointSize="15"/>
                                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="999" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C5M-os-RhE">
-                                                <rect key="frame" x="260" y="86" width="26.5" height="17"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <color key="textColor" red="0.087816827376968595" green="0.76934718586387429" blue="0.0839225787438201" alpha="1" colorSpace="calibratedRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
@@ -52,12 +46,10 @@
                                             <constraint firstItem="kfu-fa-VBI" firstAttribute="top" secondItem="Tml-qp-bAd" secondAttribute="top" constant="40" id="IAd-7R-hRb"/>
                                             <constraint firstItem="lNK-Ms-nSz" firstAttribute="leading" secondItem="kfu-fa-VBI" secondAttribute="trailing" constant="8" id="Uab-re-l7M"/>
                                             <constraint firstItem="lNK-Ms-nSz" firstAttribute="bottom" secondItem="kfu-fa-VBI" secondAttribute="bottom" constant="-8" id="XsV-bn-Dlk"/>
-                                            <constraint firstItem="EY2-pu-X76" firstAttribute="leading" secondItem="C5M-os-RhE" secondAttribute="trailing" constant="5" id="alr-sU-Vle"/>
                                             <constraint firstItem="lNK-Ms-nSz" firstAttribute="top" secondItem="kfu-fa-VBI" secondAttribute="top" id="cCN-ns-63v"/>
                                             <constraint firstAttribute="trailing" secondItem="lNK-Ms-nSz" secondAttribute="trailing" constant="237" id="hug-CF-qJ8"/>
                                             <constraint firstItem="kfu-fa-VBI" firstAttribute="top" secondItem="Tml-qp-bAd" secondAttribute="top" constant="69" id="icj-Cb-0sb"/>
                                             <constraint firstItem="lNK-Ms-nSz" firstAttribute="centerX" secondItem="Tml-qp-bAd" secondAttribute="centerX" constant="35" id="lar-uh-2zv"/>
-                                            <constraint firstItem="C5M-os-RhE" firstAttribute="centerY" secondItem="EY2-pu-X76" secondAttribute="centerY" id="qoH-yV-82E"/>
                                             <constraint firstItem="EY2-pu-X76" firstAttribute="trailing" secondItem="lNK-Ms-nSz" secondAttribute="trailing" id="rir-3Z-d34"/>
                                             <constraint firstItem="lNK-Ms-nSz" firstAttribute="top" secondItem="Tml-qp-bAd" secondAttribute="top" constant="95" id="z1g-Jm-rMt"/>
                                         </constraints>
@@ -218,7 +210,6 @@
                     <size key="freeformSize" width="600" height="1000"/>
                     <connections>
                         <outlet property="BPMView" destination="Tml-qp-bAd" id="l2t-TL-Zvz"/>
-                        <outlet property="averageHeartRate" destination="C5M-os-RhE" id="e0T-cB-YFo"/>
                         <outlet property="barButton" destination="TEW-Wx-HqA" id="E0Q-QA-2vp"/>
                         <outlet property="footerView" destination="6Uv-Q7-e2D" id="fMP-XL-jNv"/>
                         <outlet property="lineChartView" destination="sT0-8F-VQ9" id="iMf-m0-Lqe"/>

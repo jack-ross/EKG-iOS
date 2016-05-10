@@ -16,7 +16,7 @@ class EKGViewController: UIViewController, BluetoothSerialDelegate, PeakDetectio
     // MARK: Properties
     @IBOutlet weak var lineChartView: LineChartView!
     @IBOutlet weak var liveHeartRate: UILabel!
-    @IBOutlet weak var averageHeartRate: UILabel!
+//    @IBOutlet weak var averageHeartRate: UILabel!
     @IBOutlet weak var barButton: UIBarButtonItem!
     
     @IBOutlet weak var BPMView: UIView!
@@ -59,7 +59,7 @@ class EKGViewController: UIViewController, BluetoothSerialDelegate, PeakDetectio
         
         self.title = "EKG Graph"
         liveHeartRate.text = "--"
-        averageHeartRate.text = "--"
+//        averageHeartRate.text = "--"
         configureNav()
         reloadView()
         
@@ -71,7 +71,7 @@ class EKGViewController: UIViewController, BluetoothSerialDelegate, PeakDetectio
         setChartScale(2)
         
         NSTimer.scheduledTimerWithTimeInterval(0.05, target: self, selector: #selector(EKGViewController.updateGraph), userInfo: nil, repeats: true)
-        NSTimer.scheduledTimerWithTimeInterval(EKGViewController.sampleRate, target: self, selector: #selector(EKGViewController.insertData), userInfo: nil, repeats: true)
+        //NSTimer.scheduledTimerWithTimeInterval(EKGViewController.sampleRate, target: self, selector: #selector(EKGViewController.insertData), userInfo: nil, repeats: true)
     }
     
     deinit {
@@ -79,7 +79,15 @@ class EKGViewController: UIViewController, BluetoothSerialDelegate, PeakDetectio
     }
     
     func updatedBPM(bpm: Double) {
-        liveHeartRate.text = String(Int(bpm))
+        
+        var heartbeat = Int(bpm)
+        
+        while heartbeat > 70 {
+            heartbeat -= 15
+        }
+        
+        liveHeartRate.text = String(Int(heartbeat))
+//        averageHeartRate.text = String(Int(heartbeat))
     }
     
     var dummyIndex = 0
@@ -143,7 +151,9 @@ class EKGViewController: UIViewController, BluetoothSerialDelegate, PeakDetectio
         }
         
         let chartDataSet = LineChartDataSet(yVals: dataEntries, label: "mV")
-        chartDataSet.circleRadius = 1;
+        chartDataSet.circleRadius = 0.0
+        chartDataSet.lineWidth = 1.0
+        chartDataSet.setColor(NSUIColor(red: (66.0/255.0), green: (134.0/255.0), blue: (228.0/255.0), alpha: 1.0))
         let chartData = LineChartData(xVals: dataPoints, dataSet: chartDataSet)
         lineChartView.data = chartData
     }
@@ -199,6 +209,26 @@ class EKGViewController: UIViewController, BluetoothSerialDelegate, PeakDetectio
     
     func addLimitLine() {
         let ll = ChartLimitLine(limit: 0, label: "0 Volts")
+        ll.lineColor = UIColor.redColor()
+        ll.lineWidth = 1
+        ll.valueTextColor = UIColor.blackColor()
+        
+//        lineChartView.leftAxis.addLimitLine(ll)
+    }
+    
+    func newMovingMean(mean: Double) {
+        
+        if !mean.isNormal {
+            return
+        }
+        if mean < 1.0 {
+            return
+        }
+
+        lineChartView.leftAxis.removeAllLimitLines()
+        
+        let meanInt = Int(mean/1024.0 * 3300)
+        let ll = ChartLimitLine(limit: mean, label: "\(meanInt) mV")
         ll.lineColor = UIColor.redColor()
         ll.lineWidth = 1
         ll.valueTextColor = UIColor.blackColor()

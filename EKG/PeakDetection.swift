@@ -9,6 +9,7 @@
 protocol PeakDetectionDelegate {
     // ** Required **
     func updatedBPM(bpm: Double)
+    func newMovingMean(mean: Double)
 }
 
 class PeakDetection: NSObject {
@@ -20,7 +21,7 @@ class PeakDetection: NSObject {
     var peaks = Dictionary<Double, Double>() // dictionary of peak ampl
     private let binSizeN = 5
     private var timePerPeak = 5.0/120 // 1 peak index = 5 peaks, therefor 3*120Hz = 0.0833 seconds per peak index
-    private var bufferMaxSize = 120 // 120 bins before calculation
+    private var bufferMaxSize = 240 // 120 bins before calculation
     private let minPeakAmplitude = 520.0 // mV
     private let minPeakTimeDifference = 0.3 // must be 0.5 seconds between peaks
 
@@ -57,6 +58,7 @@ class PeakDetection: NSObject {
         
         // get moving mean of last five seconds
         meanValue = calculateAverage(valueDataBins)
+        delegate.newMovingMean(meanValue)
     }
     
     func detectBPM() {
